@@ -1,12 +1,12 @@
 import React from 'react';
-import {LoginPage} from './Pages/LoginPage/LoginPage';
 import {Container} from '@mui/material';
+import {Routes} from './Components/Routes';
 
 function App() {
 	return (
 		<div>
 			<Container>
-				<LoginPage/>
+				<Routes/>
 			</Container>
 		</div>
 	);

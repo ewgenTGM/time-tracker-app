@@ -16,7 +16,7 @@ export const setErrorAC = (error: string | null) => {
 	};
 };
 
-export const setIsLoading = (isLoading: boolean) => {
+export const setIsLoadingAC = (isLoading: boolean) => {
 	return {
 		type: ActionTypes.SET_IS_LOADING as const,
 		payload: {
@@ -25,7 +25,7 @@ export const setIsLoading = (isLoading: boolean) => {
 	};
 };
 
-export const setIsRegistrationSuccess = (isRegisterSuccess: boolean) => {
+export const setIsRegistrationSuccessAC = (isRegisterSuccess: boolean) => {
 	return {
 		type: ActionTypes.SET_IS_REGISTRATION_SUCCESS as const,
 		payload: {
@@ -35,38 +35,38 @@ export const setIsRegistrationSuccess = (isRegisterSuccess: boolean) => {
 };
 
 export const registerTC = (name: string, email: string, password: string) => async (dispatch: AppDispatch) => {
-	dispatch(setIsLoading(true));
+	dispatch(setIsLoadingAC(true));
 	dispatch(setErrorAC(null));
 	try {
 		await api.register(name, email, password);
-		dispatch(setIsRegistrationSuccess(true));
+		dispatch(setIsRegistrationSuccessAC(true));
 	} catch (e) {
 		dispatch(setErrorAC('Any error'));
-		dispatch(setIsRegistrationSuccess(false));
+		dispatch(setIsRegistrationSuccessAC(false));
 	} finally {
-		dispatch(setIsLoading(false));
+		dispatch(setIsLoadingAC(false));
 	}
 
 };
 
 export type RegistrationActionType =
 	ReturnType<typeof setErrorAC>
-	| ReturnType<typeof setIsLoading>
-	| ReturnType<typeof setIsRegistrationSuccess>
+	| ReturnType<typeof setIsLoadingAC>
+	| ReturnType<typeof setIsRegistrationSuccessAC>
 
-type StateType = {
+export type RegisterStateType = {
 	error: string | null
 	isLoading: boolean
 	isRegisterSuccess: boolean
 }
 
-const initialState: StateType = {
+const initialState: RegisterStateType = {
 	error: null,
 	isLoading: false,
 	isRegisterSuccess: false
 };
 
-export const registerReducer = (state = initialState, action: RegistrationActionType): StateType => {
+export const registerReducer = (state = initialState, action: RegistrationActionType): RegisterStateType => {
 	switch (action.type) {
 		case ActionTypes.SET_IS_REGISTRATION_SUCCESS:
 		case ActionTypes.SET_IS_LOADING:
