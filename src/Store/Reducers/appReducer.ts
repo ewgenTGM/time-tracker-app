@@ -10,14 +10,14 @@ export const setIsInitializedAC = (isInitialized: boolean) => {
 	};
 };
 
-export const setIsAuthorizedAC = (isAuthorized: boolean) => {
+export const setIsAuthorizedAppAC = (isAuthorized: boolean) => {
 	return {
 		type: ActionTypes.SET_IS_AUTHORIZED as const,
 		payload: {isAuthorized}
 	};
 };
 
-export type AppActionType = ReturnType<typeof setIsAuthorizedAC> | ReturnType<typeof setIsInitializedAC>
+export type AppActionType = ReturnType<typeof setIsAuthorizedAppAC> | ReturnType<typeof setIsInitializedAC>
 
 export type AppStateType = {
 	isAuthorized: boolean
@@ -30,6 +30,9 @@ const appState: AppStateType = {
 };
 export const appReducer = (state = appState, action: AppActionType): AppStateType => {
 	switch (action.type) {
+		case ActionTypes.SET_IS_AUTHORIZED:
+		case ActionTypes.SET_IS_INITIALIZED:
+			return {...state, ...action.payload}
 		default:
 			return state;
 	}

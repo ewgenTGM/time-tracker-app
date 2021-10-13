@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Grid, TextField} from '@mui/material';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import {api} from '../Helpers/api';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../Store/Store';
@@ -8,7 +8,7 @@ import {AuthStateType, loginTC, logoutTC} from '../Store/Reducers/authReducer';
 import {PATH} from './Routes';
 
 export const LoginForm: React.FC = props => {
-
+	console.log('LoginForm call');
 	const dispatch = useDispatch();
 	const authState = useSelector<RootState, AuthStateType>(state => state.authReducer);
 	const [email, setEmail] = React.useState<string>('manager.cent@gmail.com');

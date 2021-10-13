@@ -1,5 +1,6 @@
 import {AppDispatch} from '../Store';
 import {api} from '../../Helpers/api';
+import {setIsAuthorizedAppAC} from './appReducer';
 
 enum ActionTypes {
 	SET_ERROR = 'AUTH/SET_ERROR',
@@ -50,9 +51,12 @@ export const loginTC = (email: string, password: string) => async (dispatch: App
 		const response = await api.login(email, password);
 		dispatch(setUserDataAC({} as UserType));
 		dispatch(setIsAuthorizedAC(true));
+		dispatch(setIsAuthorizedAppAC(true));
+
 	} catch (e) {
 		dispatch(setErrorAC('Any error'));
 		dispatch(setIsAuthorizedAC(false));
+		dispatch(setIsAuthorizedAppAC(false));
 	} finally {
 		dispatch(setIsLoadingAC(false));
 	}
