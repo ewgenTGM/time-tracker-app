@@ -1,5 +1,5 @@
 import {AppDispatch} from '../Store';
-import {api} from '../../Helpers/api';
+import {authApi} from '../../Helpers/authApi';
 
 export enum ActionTypes {
 	SET_ERROR = 'REGISTER/SET_ERROR',
@@ -38,7 +38,7 @@ export const registerTC = (name: string, email: string, password: string) => asy
 	dispatch(setIsLoadingAC(true));
 	dispatch(setErrorAC(null));
 	try {
-		await api.register(name, email, password);
+		await authApi.register(name, email, password);
 		dispatch(setIsRegistrationSuccessAC(true));
 	} catch (e) {
 		dispatch(setErrorAC('Any error'));

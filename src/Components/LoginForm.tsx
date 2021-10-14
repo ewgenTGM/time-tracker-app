@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Grid, TextField} from '@mui/material';
 import {Link, Redirect} from 'react-router-dom';
-import {api} from '../Helpers/api';
+import {authApi} from '../Helpers/authApi';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../Store/Store';
 import {AuthStateType, loginTC, logoutTC} from '../Store/Reducers/authReducer';
@@ -18,7 +18,7 @@ export const LoginForm: React.FC = props => {
 		dispatch(loginTC(email, password));
 	};
 	const checkStatus = () => {
-		api.me().then(res => console.log(res.data));
+		authApi.me().then(res => console.log(res.data));
 	};
 	const logout = () => {
 		dispatch(logoutTC());

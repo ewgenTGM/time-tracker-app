@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({baseURL: 'http://localhost:28888/api', withCredentials: true});
 
-export const api = {
+export const authApi = {
 	me: () => {
 		return instance.get('/auth/me');
 	},

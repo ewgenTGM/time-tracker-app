@@ -3,11 +3,13 @@ import {Route, Switch} from 'react-router-dom';
 import {LoginPage} from '../Pages/LoginPage/LoginPage';
 import {RegisterPage} from '../Pages/RegisterPage/RegisterPage';
 import {UserPage} from '../Pages/UserPage/UserPage';
+import {ManagerPage} from '../Pages/ManagerPage/ManagerPage';
 
 export enum PATH {
 	LOGIN = '/login',
 	REGISTER = '/register',
-	USER_PAGE='/userPage'
+	USER_PAGE = '/user',
+	MANAGER_PAGE = '/manager'
 }
 
 export const Routes: React.VFC = () => {
@@ -32,6 +34,10 @@ export const Routes: React.VFC = () => {
 				path={PATH.USER_PAGE}
 				exact
 				render={() => <UserPage/>}/>
+			<Route
+				path={PATH.MANAGER_PAGE}
+				exact
+				render={() => <ManagerPage/>}/>
 		</Switch>
 
 	);

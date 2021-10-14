@@ -1,5 +1,5 @@
 import {AppDispatch} from '../Store';
-import {api} from '../../Helpers/api';
+import {authApi} from '../../Helpers/authApi';
 import {setIsAuthorizedAppAC} from './appReducer';
 
 enum ActionTypes {
@@ -48,7 +48,7 @@ export const setUserDataAC = (user: UserType) => {
 export const loginTC = (email: string, password: string) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(setIsLoadingAC(true));
-		const response = await api.login(email, password);
+		const response = await authApi.login(email, password);
 		dispatch(setUserDataAC({} as UserType));
 		dispatch(setIsAuthorizedAC(true));
 		dispatch(setIsAuthorizedAppAC(true));
@@ -65,7 +65,7 @@ export const loginTC = (email: string, password: string) => async (dispatch: App
 export const logoutTC = () => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(setIsLoadingAC(true));
-		await api.logout();
+		await authApi.logout();
 		dispatch(setUserDataAC({} as UserType));
 		dispatch(setIsAuthorizedAC(false));
 	} catch (e) {

@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import {registerReducer} from './Reducers/registerReducer';
 import {authReducer} from './Reducers/authReducer';
 import {appReducer} from './Reducers/appReducer';
+import {managerReducer} from './Reducers/managerReducer';
 
 const RootReducer = combineReducers({
 	authReducer,
 	registerReducer,
-	appReducer
+	appReducer,
+	managerReducer
 
 });
 
