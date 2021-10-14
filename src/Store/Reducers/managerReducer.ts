@@ -40,7 +40,6 @@ export const setClaimsTC = () => async (dispatch: AppDispatch) => {
 		dispatch(setIsLoadingAC(true));
 		const response = await claimApi.getInProgressClaims();
 		dispatch(setClaimsAC(response.data));
-		console.log(response.data);
 	} catch (e) {
 		dispatch(setErrorAC('Some Error'));
 	} finally {
