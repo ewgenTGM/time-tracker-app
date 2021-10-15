@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from './Store/Store';
 import {appInitializeTC, AppStateType} from './Store/Reducers/appReducer';
 import {LoginResponseType} from './Helpers/authApi';
-import {AppBar} from './Components/AppBar';
+import {AppBar} from './Components/AppBar/AppBar';
 
 function App() {
 	const isInitialized = useSelector<RootState, boolean>(state => state.appReducer.isInitialized);

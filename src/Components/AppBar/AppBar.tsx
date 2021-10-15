@@ -1,8 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {RootState} from '../Store/Store';
-import {logoutTC} from '../Store/Reducers/authReducer';
-import {AppStateType} from '../Store/Reducers/appReducer';
+import {RootState} from '../../Store/Store';
+import {logoutTC} from '../../Store/Reducers/authReducer';
+import {AppStateType} from '../../Store/Reducers/appReducer';
+import styles from './AppBar.module.css'
 
 type PropsType = {};
 
@@ -19,7 +20,7 @@ export const AppBar: React.FC<PropsType> = props => {
 	);
 
 	return (
-		<header style={{display: 'flex'}}>
+		<header className={styles.header}>
 			{appStatus.isAuthorized ? userInfo : null}
 			{appStatus.isAuthorized ? <button onClick={logout}>Logout</button> : null}
 		</header>

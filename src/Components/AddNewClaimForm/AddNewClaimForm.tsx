@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {AddVacation} from './Claims/AddVacation';
+import {AddVacation} from '../Claims/AddVacation';
 import styles from './AddNewClaimForm.module.css';
-import {AddSick} from './Claims/AddSick';
-import {AddTransfer} from './Claims/AddTransfer';
-import {AddWFH} from './Claims/AddWFH';
+import {AddSick} from '../Claims/AddSick';
+import {AddTransfer} from '../Claims/AddTransfer';
+import {AddWFH} from '../Claims/AddWFH';
 
 export const AddNewClaimForm: React.FC = props => {
 	const claimTypes = ['Vacation', 'Sick', 'Transfer', 'WFH'];
@@ -24,7 +24,9 @@ export const AddNewClaimForm: React.FC = props => {
 	return (
 		<div className={styles.addNewClaim}>
 			<h3>Здесь можно сделать заявку</h3>
+			<hr/>
 			<select
+				className={styles.claimTypeSelect}
 				value={currentOption}
 				name="claimType"
 				onChange={(e) => setCurrentOption(e.currentTarget.value)}>

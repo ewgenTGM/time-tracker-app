@@ -2,5 +2,9 @@
     display: flex;
     flex-direction: column;
     align-content: center;
+}
 
+.claimTypeSelect {
+    max-width: 150px;
+    padding: 5px;
 }
