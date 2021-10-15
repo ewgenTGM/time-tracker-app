@@ -48,6 +48,21 @@ export const setClaimsTC = () => async (dispatch: AppDispatch) => {
 
 };
 
+export const setClaimsStatusTC = (id: number, status: number) => async (dispatch: AppDispatch) => {
+	try {
+		dispatch(setErrorAC(null));
+		dispatch(setIsLoadingAC(true));
+		await claimApi.setClaimStatus(id, status);
+		const newClaims = await claimApi.getInProgressClaims();
+		dispatch(setClaimsAC(newClaims.data));
+	} catch (e) {
+		dispatch(setErrorAC('Some Error'));
+	} finally {
+		dispatch(setIsLoadingAC(false));
+	}
+
+};
+
 export type ManagerActionType =
 	ReturnType<typeof setClaimsAC>
 	| ReturnType<typeof setIsLoadingAC>

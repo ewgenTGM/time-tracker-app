@@ -3,13 +3,27 @@ import styles from './Claim.module.css';
 import {Vacation} from './Vacation';
 import {Sick} from './Sick';
 import {Transfer} from './Transfer';
+import {useDispatch} from 'react-redux';
+import {setClaimsStatusTC} from '../../Store/Reducers/managerReducer';
 
 type PropsType = {
-	claim: any
+	claim: any,
+	readonly?: boolean
 };
 
 export const Claim: React.FC<PropsType> = props => {
 	const {discriminator, user, id, claimStatus, ...rest} = props.claim;
+	const {readonly} = props;
+	const dispatch = useDispatch();
+
+	const approveClaim = () => {
+		dispatch(setClaimsStatusTC(id, 0));
+	};
+
+	const rejectClaim = () => {
+		dispatch(setClaimsStatusTC(id, 1));
+	};
+
 	const info = () => {
 		switch (discriminator) {
 			case 'Sick':
@@ -25,7 +39,12 @@ export const Claim: React.FC<PropsType> = props => {
 		}
 	};
 
-	const status = ["Approved", "Rejected", "In progress"];
+	const buttons = readonly ? ( <div className={styles.btns}>
+		<button onClick={approveClaim}>Approve</button>
+		<button onClick={rejectClaim}>Reject</button>
+	</div> ) : null;
+
+	const status = ['Approved', 'Rejected', 'In progress'];
 
 	return (
 		<div className={styles.card}>
@@ -44,10 +63,7 @@ export const Claim: React.FC<PropsType> = props => {
 			<div style={{fontSize: '14px', textAlign: 'left'}}>
 				{info()}
 			</div>
-			<div className={styles.btns}>
-				<button>Approve</button>
-				<button>Reject</button>
-			</div>
+			{buttons}
 		</div>
 	);
 };

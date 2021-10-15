@@ -1,0 +1,12 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.dtp, .btnSubmit {
+    max-width: 150px;
+    padding: 5px;
+    margin: 10px;
+}
+
