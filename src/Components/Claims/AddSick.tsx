@@ -20,7 +20,6 @@ export const AddSick: React.FC<PropsType> = props => {
 
 	return (
 		<div className={commonStyles.form}>
-			Add Sick Form
 			<span>Выберите дату начала</span>
 			<input
 				className={commonStyles.dtp}

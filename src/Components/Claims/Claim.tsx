@@ -5,6 +5,7 @@ import {Sick} from './Sick';
 import {Transfer} from './Transfer';
 import {useDispatch} from 'react-redux';
 import {setClaimsStatusTC} from '../../Store/Reducers/managerReducer';
+import {WFH} from './WFH';
 
 type PropsType = {
 	claim: any,
@@ -36,6 +37,8 @@ export const Claim: React.FC<PropsType> = props => {
 				return <Vacation data={rest}/>;
 			case 'Transfer':
 				return <Transfer data={rest}/>;
+			case 'WorkFromHome':
+				return <WFH data={rest}/>;
 		}
 	};
 
@@ -51,6 +54,10 @@ export const Claim: React.FC<PropsType> = props => {
 				return 'lightyellow';
 			case 'Transfer':
 				return 'lightskyblue';
+			case 'WorkFromHome':
+				return 'tomato';
+			default:
+				return 'white';
 		}
 	};
 
@@ -61,7 +68,9 @@ export const Claim: React.FC<PropsType> = props => {
 
 	const status = ['Approved', 'Rejected', 'In progress'];
 	return (
-		<div className={styles.card} style={{backgroundColor: getColor()}}>
+		<div
+			className={styles.card}
+			style={{backgroundColor: getColor()}}>
 			<div className={styles.title}>
 				{discriminator}
 			</div>

@@ -17,7 +17,6 @@ export const AddTransfer: React.FC<PropsType> = props => {
 
 	return (
 		<div className={commonStyles.form}>
-			Add Transfer Form
 			<span>С какого числа</span>
 			<input
 				className={commonStyles.dtp}

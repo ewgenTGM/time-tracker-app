@@ -22,6 +22,10 @@ export const claimApi = {
 		const route = `add/transfer`;
 		return instance.post(route, {dayFrom, dayTo, description});
 	},
+	addWorkFromHome(date: string){
+		const route = `add/wfh`;
+		return instance.post(route, {date});
+	},
 	getUsersClaim() {
 		return instance.get('');
 	}

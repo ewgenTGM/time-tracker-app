@@ -18,7 +18,6 @@ export const AddVacation: React.FC<PropsType> = props => {
 
 	return (
 		<div className={commonStyles.form}>
-			Add Vacation
 			<span>Выберите дату начала</span>
 			<input
 				className={commonStyles.dtp}

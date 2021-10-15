@@ -49,8 +49,11 @@ export const addUserClaimTC = (claimType: string, payload: any) => async (dispat
 			case 'Sick':
 				await claimApi.addSick(payload.dateBegin, payload.dateEnd, payload.sickDays, payload.description, payload.description);
 				break;
+			case 'WFH':
+				await claimApi.addWorkFromHome(payload.date);
+				break;
 			default:
-				dispatch(setIsLoadingAC(true));
+				dispatch(setIsLoadingAC(false));
 				return;
 		}
 		const response = await claimApi.getUsersClaim();
