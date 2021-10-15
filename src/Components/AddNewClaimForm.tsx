@@ -6,7 +6,7 @@ import {AddTransfer} from './Claims/AddTransfer';
 import {AddWFH} from './Claims/AddWFH';
 
 export const AddNewClaimForm: React.FC = props => {
-	const claimTypes = ['Vacation', 'Sick', 'Transfer', 'Work from home'];
+	const claimTypes = ['Vacation', 'Sick', 'Transfer', 'WFH'];
 	const [currentOption, setCurrentOption] = useState(claimTypes[0]);
 
 	const form = () => {
@@ -17,7 +17,7 @@ export const AddNewClaimForm: React.FC = props => {
 				return <AddSick/>;
 			case 'Transfer':
 				return <AddTransfer/>;
-			case 'Work from home':
+			case 'WFH':
 				return <AddWFH/>;
 		}
 	};

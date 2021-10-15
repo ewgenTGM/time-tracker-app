@@ -39,15 +39,29 @@ export const Claim: React.FC<PropsType> = props => {
 		}
 	};
 
+	const getColor = () => {
+		switch (discriminator) {
+			case 'Sick':
+				return 'lightgreen';
+			case 'SickDays':
+				return 'lightsalmon';
+			case 'Vacation':
+				return 'lightpink';
+			case 'UnpaidedVacation':
+				return 'lightyellow';
+			case 'Transfer':
+				return 'lightskyblue';
+		}
+	};
+
 	const buttons = !forUser ? ( <div className={styles.btns}>
 		<button onClick={approveClaim}>Approve</button>
 		<button onClick={rejectClaim}>Reject</button>
 	</div> ) : null;
 
 	const status = ['Approved', 'Rejected', 'In progress'];
-
 	return (
-		<div className={styles.card}>
+		<div className={styles.card} style={{backgroundColor: getColor()}}>
 			<div className={styles.title}>
 				{discriminator}
 			</div>

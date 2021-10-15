@@ -46,6 +46,9 @@ export const addUserClaimTC = (claimType: string, payload: any) => async (dispat
 			case 'Vacation':
 				await claimApi.addVacation(payload.dateBegin, payload.dateEnd, payload.unpaided, payload.description);
 				break;
+			case 'Sick':
+				await claimApi.addSick(payload.dateBegin, payload.dateEnd, payload.sickDays, payload.description, payload.description);
+				break;
 			default:
 				dispatch(setIsLoadingAC(true));
 				return;

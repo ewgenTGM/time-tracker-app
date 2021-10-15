@@ -11,7 +11,7 @@ export const UserPage: React.FC = props => {
 	const isAuthorized = useSelector<RootState, boolean>(state => state.appReducer.isAuthorized);
 	const userStatus = useSelector<RootState, UserStateType>(state => state.userReducer);
 
-	const claims = userStatus.claims.map(claim => <Claim
+	const claims = userStatus.claims && userStatus.claims.map(claim => <Claim
 		claim={claim}
 		key={claim.id}
 		forUser/>);
