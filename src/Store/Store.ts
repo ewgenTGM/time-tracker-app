@@ -4,13 +4,14 @@ import {registerReducer} from './Reducers/registerReducer';
 import {authReducer} from './Reducers/authReducer';
 import {appReducer} from './Reducers/appReducer';
 import {managerReducer} from './Reducers/managerReducer';
+import {userReducer} from './Reducers/userReducer';
 
 const RootReducer = combineReducers({
 	authReducer,
 	registerReducer,
 	appReducer,
-	managerReducer
-
+	managerReducer,
+	userReducer
 });
 
 export const store = createStore(RootReducer, applyMiddleware(thunk));

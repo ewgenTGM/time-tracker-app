@@ -8,12 +8,12 @@ import {setClaimsStatusTC} from '../../Store/Reducers/managerReducer';
 
 type PropsType = {
 	claim: any,
-	readonly?: boolean
+	forUser?: boolean
 };
 
 export const Claim: React.FC<PropsType> = props => {
 	const {discriminator, user, id, claimStatus, ...rest} = props.claim;
-	const {readonly} = props;
+	const {forUser} = props;
 	const dispatch = useDispatch();
 
 	const approveClaim = () => {
@@ -39,7 +39,7 @@ export const Claim: React.FC<PropsType> = props => {
 		}
 	};
 
-	const buttons = readonly ? ( <div className={styles.btns}>
+	const buttons = !forUser ? ( <div className={styles.btns}>
 		<button onClick={approveClaim}>Approve</button>
 		<button onClick={rejectClaim}>Reject</button>
 	</div> ) : null;

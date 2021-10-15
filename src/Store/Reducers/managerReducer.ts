@@ -1,7 +1,7 @@
 import {AppDispatch} from '../Store';
 import {claimApi} from '../../Helpers/claimApi';
 
-export enum ActionTypes {
+export enum ManagerActionTypes {
 	SET_ERROR = 'MANAGER/SET_ERROR',
 	SET_IS_LOADING = 'MANAGER/SET_IS_LOADING',
 	SET_CLAIMS = 'REGISTER/SET_IS_REGISTRATION_SUCCESS'
@@ -9,7 +9,7 @@ export enum ActionTypes {
 
 export const setErrorAC = (error: string | null) => {
 	return {
-		type: ActionTypes.SET_ERROR as const,
+		type: ManagerActionTypes.SET_ERROR as const,
 		payload: {
 			error
 		}
@@ -18,7 +18,7 @@ export const setErrorAC = (error: string | null) => {
 
 export const setIsLoadingAC = (isLoading: boolean) => {
 	return {
-		type: ActionTypes.SET_IS_LOADING as const,
+		type: ManagerActionTypes.SET_IS_LOADING as const,
 		payload: {
 			isLoading
 		}
@@ -27,7 +27,7 @@ export const setIsLoadingAC = (isLoading: boolean) => {
 
 export const setClaimsAC = (claims: Array<any>) => {
 	return {
-		type: ActionTypes.SET_CLAIMS as const,
+		type: ManagerActionTypes.SET_CLAIMS as const,
 		payload: {
 			claims
 		}
@@ -83,9 +83,9 @@ const initialState = {
 
 export const managerReducer = (state = initialState, action: ManagerActionType): ManagerStateType => {
 	switch (action.type) {
-		case ActionTypes.SET_IS_LOADING:
-		case ActionTypes.SET_CLAIMS:
-		case ActionTypes.SET_ERROR:
+		case ManagerActionTypes.SET_IS_LOADING:
+		case ManagerActionTypes.SET_CLAIMS:
+		case ManagerActionTypes.SET_ERROR:
 			return {
 				...state, ...action.payload
 			};

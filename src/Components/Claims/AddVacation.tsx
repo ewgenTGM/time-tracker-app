@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
 import commonStyles from './CommonStyles.module.css';
 import {useDispatch} from 'react-redux';
+import {addUserClaimTC} from '../../Store/Reducers/userReducer';
 
 type PropsType = {};
 
 export const AddVacation: React.FC<PropsType> = props => {
 	const dispatch = useDispatch();
-	const submit = ()=>{
 
-	}
 	const [dateBegin, setDateBegin] = useState<string>('');
 	const [dateEnd, setDateEnd] = useState<string>('');
+	const [unpaided, setUnpaided] = useState<boolean>(false);
+
+	const submit = () => {
+		dispatch(addUserClaimTC('Vacation', {dateBegin, dateEnd, unpaided}));
+	};
+
 	return (
 		<div className={commonStyles.form}>
 			Add Vacation
@@ -26,7 +31,15 @@ export const AddVacation: React.FC<PropsType> = props => {
 				type="date"
 				value={dateEnd}
 				onChange={(e) => setDateEnd(e.currentTarget.value)}/>
-			<button className={commonStyles.btnSubmit}>Отправить</button>
+			<span>Unpaided</span>
+			<input
+				type="checkbox"
+				checked={unpaided}
+				onChange={e => setUnpaided(e.currentTarget.checked)}/>
+			<button
+				className={commonStyles.btnSubmit}
+				onClick={submit}>Отправить
+			</button>
 		</div>
 	);
 };
