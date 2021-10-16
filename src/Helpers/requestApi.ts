@@ -1,12 +1,12 @@
 import axios from 'axios';
 
-const instance = axios.create({baseURL: 'http://localhost:28888/api/claim', withCredentials: true});
+const instance = axios.create({baseURL: 'http://localhost:28888/api/request', withCredentials: true});
 
-export const claimApi = {
-	getInProgressClaims() {
+export const requestApi = {
+	getInProgressRequests() {
 		return instance.get('all');
 	},
-	setClaimStatus(id: number, status: number) {
+	setRequestStatus(id: number, status: number) {
 		const route = `${status === 0 ? 'approve' : 'reject'}/${id}`;
 		return instance.get(route);
 	},
@@ -26,7 +26,7 @@ export const claimApi = {
 		const route = `add/wfh`;
 		return instance.post(route, {date});
 	},
-	getUsersClaim() {
+	getUsersRequest() {
 		return instance.get('');
 	}
 };

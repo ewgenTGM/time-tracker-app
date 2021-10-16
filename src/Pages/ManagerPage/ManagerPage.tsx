@@ -1,23 +1,23 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ManagerStateType, setClaimsTC} from '../../Store/Reducers/managerReducer';
+import {ManagerStateType, setRequestsTC} from '../../Store/Reducers/managerReducer';
 
 import {RootState} from '../../Store/Store';
-import {Claim} from '../../Components/Claims/Claim';
+import {Request} from '../../Components/Requests/Request';
 import {Redirect} from 'react-router-dom';
 import {PATH} from '../../Components/Routes';
 
 export const ManagerPage: React.FC = props => {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(setClaimsTC());
+		dispatch(setRequestsTC());
 	}, []);
 
 	const managerStatus = useSelector<RootState, ManagerStateType>(state => state.managerReducer);
-	const {claims, isLoading, error} = managerStatus;
+	const {requests, isLoading, error} = managerStatus;
 
-	const claimsArr = claims.map(c => <Claim
-		claim={c}
+	const requestsElements = requests.map(c => <Request
+		request={c}
 		key={c.id}/>);
 	const isAuthorized = useSelector<RootState, boolean>(state => state.appReducer.isAuthorized);
 	if (!isAuthorized) {
@@ -27,7 +27,7 @@ export const ManagerPage: React.FC = props => {
 		<div>
 			<h2>Manager page</h2>
 			{isLoading ? <span>....Loading....</span> :
-				<div style={{display: 'flex', flexWrap: 'wrap'}}>{claimsArr}</div>}
+				<div style={{display: 'flex', flexWrap: 'wrap'}}>{requestsElements}</div>}
 			{error ? <span style={{color: 'red'}}>{error}</span> : null}
 		</div>
 	);

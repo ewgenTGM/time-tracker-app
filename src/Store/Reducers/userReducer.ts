@@ -1,10 +1,10 @@
 import {AppDispatch} from '../Store';
-import {claimApi} from '../../Helpers/claimApi';
+import {requestApi} from '../../Helpers/requestApi';
 
 export enum UserActionTypes {
 	SET_ERROR = 'USER/SET_ERROR',
 	SET_IS_LOADING = 'USER/SET_IS_LOADING',
-	SET_CLAIMS = 'USER/SET_IS_REGISTRATION_SUCCESS'
+	SET_REQUESTS = 'USER/SET_REQUESTS'
 }
 
 export const setErrorAC = (error: string | null) => {
@@ -25,39 +25,39 @@ export const setIsLoadingAC = (isLoading: boolean) => {
 	};
 };
 
-export const setClaimsAC = (claims: Array<any>) => {
+export const setRequestsAC = (requests: Array<any>) => {
 	return {
-		type: UserActionTypes.SET_CLAIMS as const,
+		type: UserActionTypes.SET_REQUESTS as const,
 		payload: {
-			claims
+			requests
 		}
 	};
 };
 
-export const addUserClaimTC = (claimType: string, payload: any) => async (dispatch: AppDispatch) => {
+export const addUserClaimTC = (requestType: string, payload: any) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(setErrorAC(null));
 		dispatch(setIsLoadingAC(true));
 		// Добавить логику для всех типов
-		switch (claimType) {
+		switch (requestType) {
 			case 'Transfer':
-				await claimApi.addTransfer(payload.dayFrom, payload.dayTo, payload.description);
+				await requestApi.addTransfer(payload.dayFrom, payload.dayTo, payload.description);
 				break;
 			case 'Vacation':
-				await claimApi.addVacation(payload.dateBegin, payload.dateEnd, payload.unpaided, payload.description);
+				await requestApi.addVacation(payload.dateBegin, payload.dateEnd, payload.unpaided, payload.description);
 				break;
 			case 'Sick':
-				await claimApi.addSick(payload.dateBegin, payload.dateEnd, payload.sickDays, payload.description, payload.description);
+				await requestApi.addSick(payload.dateBegin, payload.dateEnd, payload.sickDays, payload.description, payload.description);
 				break;
 			case 'WFH':
-				await claimApi.addWorkFromHome(payload.date);
+				await requestApi.addWorkFromHome(payload.date);
 				break;
 			default:
 				dispatch(setIsLoadingAC(false));
 				return;
 		}
-		const response = await claimApi.getUsersClaim();
-		dispatch(setClaimsAC(response.data));
+		const response = await requestApi.getUsersRequest();
+		dispatch(setRequestsAC(response.data));
 	} catch (e) {
 		dispatch(setErrorAC('Some Error'));
 	} finally {
@@ -65,12 +65,12 @@ export const addUserClaimTC = (claimType: string, payload: any) => async (dispat
 	}
 };
 
-export const setUserClaimsTC = () => async (dispatch: AppDispatch) => {
+export const setUserRequestsTC = () => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(setErrorAC(null));
 		dispatch(setIsLoadingAC(true));
-		const response = await claimApi.getUsersClaim();
-		dispatch(setClaimsAC(response.data));
+		const response = await requestApi.getUsersRequest();
+		dispatch(setRequestsAC(response.data));
 	} catch (e) {
 		dispatch(setErrorAC('Some Error'));
 	} finally {
@@ -80,18 +80,18 @@ export const setUserClaimsTC = () => async (dispatch: AppDispatch) => {
 };
 
 export type UserActionType =
-	ReturnType<typeof setClaimsAC>
+	ReturnType<typeof setRequestsAC>
 	| ReturnType<typeof setIsLoadingAC>
 	| ReturnType<typeof setErrorAC>
 
 export type UserStateType = {
 	isLoading: boolean
 	error: string | null
-	claims: Array<any>
+	requests: Array<any>
 }
 
 const initialState = {
-	claims: [],
+	requests: [],
 	isLoading: false,
 	error: null
 };
@@ -99,7 +99,7 @@ const initialState = {
 export const userReducer = (state = initialState, action: UserActionType): UserStateType => {
 	switch (action.type) {
 		case UserActionTypes.SET_IS_LOADING:
-		case UserActionTypes.SET_CLAIMS:
+		case UserActionTypes.SET_REQUESTS:
 		case UserActionTypes.SET_ERROR:
 			return {
 				...state, ...action.payload

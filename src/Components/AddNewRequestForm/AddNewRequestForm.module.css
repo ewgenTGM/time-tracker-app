@@ -1,10 +1,10 @@
-.addNewClaim {
+.addNewRequest {
     display: flex;
     flex-direction: column;
     align-content: center;
 }
 
-.claimTypeSelect {
+.requestTypeSelect {
     max-width: 150px;
     padding: 5px;
 }

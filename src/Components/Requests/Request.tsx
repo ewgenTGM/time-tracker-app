@@ -1,28 +1,28 @@
 import React from 'react';
-import styles from './Claim.module.css';
+import styles from './Request.module.css';
 import {Vacation} from './Vacation';
 import {Sick} from './Sick';
 import {Transfer} from './Transfer';
 import {useDispatch} from 'react-redux';
-import {setClaimsStatusTC} from '../../Store/Reducers/managerReducer';
+import {setRequestStatusTC} from '../../Store/Reducers/managerReducer';
 import {WFH} from './WFH';
 
 type PropsType = {
-	claim: any,
+	request: any,
 	forUser?: boolean
 };
 
-export const Claim: React.FC<PropsType> = props => {
-	const {discriminator, user, id, claimStatus, ...rest} = props.claim;
+export const Request: React.FC<PropsType> = props => {
+	const {discriminator, user, id, requestStatus, ...rest} = props.request;
 	const {forUser} = props;
 	const dispatch = useDispatch();
 
-	const approveClaim = () => {
-		dispatch(setClaimsStatusTC(id, 0));
+	const approveRequest = () => {
+		dispatch(setRequestStatusTC(id, 0));
 	};
 
-	const rejectClaim = () => {
-		dispatch(setClaimsStatusTC(id, 1));
+	const rejectRequest = () => {
+		dispatch(setRequestStatusTC(id, 1));
 	};
 
 	const info = () => {
@@ -62,8 +62,8 @@ export const Claim: React.FC<PropsType> = props => {
 	};
 
 	const buttons = !forUser ? ( <div className={styles.btns}>
-		<button onClick={approveClaim}>Approve</button>
-		<button onClick={rejectClaim}>Reject</button>
+		<button onClick={approveRequest}>Approve</button>
+		<button onClick={rejectRequest}>Reject</button>
 	</div> ) : null;
 
 	const status = ['Approved', 'Rejected', 'In progress'];
@@ -81,7 +81,7 @@ export const Claim: React.FC<PropsType> = props => {
 				{user.email}
 			</div>
 			<div>
-				{status[claimStatus]}
+				{status[requestStatus]}
 			</div>
 			<div style={{fontSize: '14px', textAlign: 'left'}}>
 				{info()}

@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {AddNewClaimForm} from '../../Components/AddNewClaimForm/AddNewClaimForm';
+import {AddNewRequestForm} from '../../Components/AddNewRequestForm/AddNewRequestForm';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../Store/Store';
 import {Redirect} from 'react-router-dom';
 import {PATH} from '../../Components/Routes';
-import {setUserClaimsTC, UserStateType} from '../../Store/Reducers/userReducer';
-import {ClaimsContainer} from '../../Components/Claims/ClaimsContainer';
+import {setUserRequestsTC, UserStateType} from '../../Store/Reducers/userReducer';
+import {RequestsContainer} from '../../Components/Requests/RequestsContainer';
 
 export const UserPage: React.FC = props => {
 	const isAuthorized = useSelector<RootState, boolean>(state => state.appReducer.isAuthorized);
@@ -14,7 +14,7 @@ export const UserPage: React.FC = props => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(setUserClaimsTC());
+		dispatch(setUserRequestsTC());
 	}, []);
 
 	if (!isAuthorized) {
@@ -23,8 +23,8 @@ export const UserPage: React.FC = props => {
 
 	return (
 		<div>
-			<ClaimsContainer claims={userStatus.claims}/>
-			<AddNewClaimForm/>
+			<RequestsContainer requests={userStatus.requests}/>
+			<AddNewRequestForm/>
 		</div>
 	);
 };
