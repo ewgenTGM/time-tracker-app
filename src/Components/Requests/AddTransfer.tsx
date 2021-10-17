@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import commonStyles from './CommonStyles.module.css'
 import {useDispatch} from 'react-redux';
-import {addUserClaimTC} from '../../Store/Reducers/userReducer';
+import {addUserRequestTC} from '../../Store/Reducers/userReducer';
 type PropsType = {};
 
 export const AddTransfer: React.FC<PropsType> = props => {
@@ -12,7 +12,7 @@ export const AddTransfer: React.FC<PropsType> = props => {
 	const [dayTo, setDayTo] = useState<string>('');
 
 	const submit = () => {
-		dispatch(addUserClaimTC('Transfer', {dayFrom, dayTo}));
+		dispatch(addUserRequestTC('Transfer', {dayFrom, dayTo}));
 	};
 
 	return (

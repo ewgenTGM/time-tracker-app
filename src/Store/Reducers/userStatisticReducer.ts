@@ -2,13 +2,16 @@ import {AppDispatch} from '../Store';
 import {userApi} from '../../Helpers/userApi';
 import {LoginResponseType} from '../../Helpers/authApi';
 import {requestApi} from '../../Helpers/requestApi';
+import {ManagerActionTypes} from './managerReducer';
+import {statApi} from '../../Helpers/statApi';
 
 export enum UserStatisticActionTypes {
 	SET_ERROR = 'STATISTIC/SET_ERROR',
 	SET_IS_LOADING = 'STATISTIC/SET_IS_LOADING',
 	SET_USERS = 'STATISTIC/SET_USERS',
 	SET_CURRENT_USER = 'STATISTIC/SET_CURRENT_USER',
-	SET_USER_REQUESTS = 'STATISTIC/SET_USER_REQUESTS'
+	SET_USER_REQUESTS = 'STATISTIC/SET_USER_REQUESTS',
+	SET_USER_STATS = 'STATISTIC/SET_USER_STATS'
 }
 
 export const setUsersAC = (users: Array<LoginResponseType>) => {
@@ -20,6 +23,15 @@ export const setUsersAC = (users: Array<LoginResponseType>) => {
 	};
 };
 
+export const setUserStatsAC = (userStats: any) => {
+	return {
+		type: UserStatisticActionTypes.SET_USER_STATS as const,
+		payload: {
+			userStats
+		}
+	};
+};
+
 export const setCurrentUserAC = (currentUser: LoginResponseType | null) => {
 	return {
 		type: UserStatisticActionTypes.SET_CURRENT_USER as const,
@@ -27,7 +39,6 @@ export const setCurrentUserAC = (currentUser: LoginResponseType | null) => {
 			currentUser
 		}
 	};
-
 };
 
 export const setUserRequestsAC = (userRequests: Array<any>) => {
@@ -37,7 +48,6 @@ export const setUserRequestsAC = (userRequests: Array<any>) => {
 			userRequests
 		}
 	};
-
 };
 
 export const setErrorAC = (error: string | null) => {
@@ -64,6 +74,7 @@ export type StatisticActionType =
 	| ReturnType<typeof setCurrentUserAC>
 	| ReturnType<typeof setUserRequestsAC>
 	| ReturnType<typeof setUsersAC>
+	| ReturnType<typeof setUserStatsAC>
 
 export const setUsersTC = () => async (dispatch: AppDispatch) => {
 	try {
@@ -87,6 +98,8 @@ export const setCurrentUserTC = (user: LoginResponseType) => async (dispatch: Ap
 		dispatch(setCurrentUserAC(user));
 		const response = await requestApi.getRequestsByEmail(user.email);
 		dispatch(setUserRequestsAC(response.data));
+		const stats = await statApi.getStatsByEmail(user.email);
+		dispatch(setUserStatsAC(stats.data));
 	} catch (e) {
 		setErrorAC('Any Error');
 		dispatch(setCurrentUserAC(null));
@@ -100,7 +113,8 @@ export type StatisticStateType = {
 	isLoading: boolean,
 	error: string | null,
 	currentUser: LoginResponseType | null,
-	users: Array<LoginResponseType>
+	users: Array<LoginResponseType>,
+	userStats: any
 }
 
 const initialStata: StatisticStateType = {
@@ -108,7 +122,8 @@ const initialStata: StatisticStateType = {
 	users: [],
 	isLoading: false,
 	error: null,
-	userRequests: []
+	userRequests: [],
+	userStats: {}
 };
 
 export const userStatisticReducer = (state = initialStata, action: StatisticActionType): StatisticStateType => {
@@ -119,6 +134,7 @@ export const userStatisticReducer = (state = initialStata, action: StatisticActi
 		case UserStatisticActionTypes.SET_IS_LOADING:
 		case UserStatisticActionTypes.SET_USER_REQUESTS:
 		case UserStatisticActionTypes.SET_USERS:
+		case UserStatisticActionTypes.SET_USER_STATS:
 			return {...state, ...action.payload};
 		default:
 			return state;

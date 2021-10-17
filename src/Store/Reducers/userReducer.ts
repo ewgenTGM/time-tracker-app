@@ -1,10 +1,12 @@
 import {AppDispatch} from '../Store';
 import {requestApi} from '../../Helpers/requestApi';
+import {statApi} from '../../Helpers/statApi';
 
 export enum UserActionTypes {
 	SET_ERROR = 'USER/SET_ERROR',
 	SET_IS_LOADING = 'USER/SET_IS_LOADING',
-	SET_REQUESTS = 'USER/SET_REQUESTS'
+	SET_REQUESTS = 'USER/SET_REQUESTS',
+	SET_STATS = 'USER/SET/SET_STATS'
 }
 
 export const setErrorAC = (error: string | null) => {
@@ -34,7 +36,16 @@ export const setRequestsAC = (requests: Array<any>) => {
 	};
 };
 
-export const addUserClaimTC = (requestType: string, payload: any) => async (dispatch: AppDispatch) => {
+export const setUserStatsAC = (stats: any) => {
+	return {
+		type: UserActionTypes.SET_STATS as const,
+		payload: {
+			stats
+		}
+	};
+};
+
+export const addUserRequestTC = (requestType: string, payload: any) => async (dispatch: AppDispatch) => {
 	try {
 		dispatch(setErrorAC(null));
 		dispatch(setIsLoadingAC(true));
@@ -58,8 +69,8 @@ export const addUserClaimTC = (requestType: string, payload: any) => async (disp
 		}
 		const response = await requestApi.getUsersRequest();
 		dispatch(setRequestsAC(response.data));
-	} catch (e) {
-		dispatch(setErrorAC('Some Error'));
+	} catch (e: any) {
+		dispatch(setErrorAC(e.response ? e.response.data.message : e.message));
 	} finally {
 		dispatch(setIsLoadingAC(false));
 	}
@@ -71,6 +82,8 @@ export const setUserRequestsTC = () => async (dispatch: AppDispatch) => {
 		dispatch(setIsLoadingAC(true));
 		const response = await requestApi.getUsersRequest();
 		dispatch(setRequestsAC(response.data));
+		const stats = await statApi.getStats();
+		dispatch(setUserStatsAC(stats.data));
 	} catch (e) {
 		dispatch(setErrorAC('Some Error'));
 	} finally {
@@ -83,17 +96,20 @@ export type UserActionType =
 	ReturnType<typeof setRequestsAC>
 	| ReturnType<typeof setIsLoadingAC>
 	| ReturnType<typeof setErrorAC>
+	| ReturnType<typeof setUserStatsAC>
 
 export type UserStateType = {
 	isLoading: boolean
 	error: string | null
 	requests: Array<any>
+	stats: any | null
 }
 
 const initialState = {
 	requests: [],
 	isLoading: false,
-	error: null
+	error: null,
+	stats: null
 };
 
 export const userReducer = (state = initialState, action: UserActionType): UserStateType => {
@@ -101,6 +117,7 @@ export const userReducer = (state = initialState, action: UserActionType): UserS
 		case UserActionTypes.SET_IS_LOADING:
 		case UserActionTypes.SET_REQUESTS:
 		case UserActionTypes.SET_ERROR:
+		case UserActionTypes.SET_STATS:
 			return {
 				...state, ...action.payload
 			};

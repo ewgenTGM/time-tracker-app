@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import commonStyles from './CommonStyles.module.css'
-import {addUserClaimTC} from '../../Store/Reducers/userReducer';
+import {addUserRequestTC} from '../../Store/Reducers/userReducer';
 import {useDispatch} from 'react-redux';
 
 type PropsType = {
@@ -11,7 +11,7 @@ export const AddWFH: React.FC<PropsType> = props => {
 	const dispatch = useDispatch();
 	const [date, setDate] = useState<string>('');
 	const submit = () => {
-		dispatch(addUserClaimTC('WFH', {date}));
+		dispatch(addUserRequestTC('WFH', {date}));
 	};
 	return (
 		<div className={commonStyles.form}>

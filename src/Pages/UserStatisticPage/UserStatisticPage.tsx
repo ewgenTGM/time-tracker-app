@@ -30,7 +30,7 @@ export const UserStatisticPage: React.FC<PropsType> = props => {
 	};
 
 	const userRequests = <RequestsContainer requests={statisticStatus.userRequests}/>;
-
+	const stats = <pre>{JSON.stringify(statisticStatus.userStats, null, 2)}</pre>;
 	const userSwitcher = (
 		statisticStatus.users.length !== 0
 			? <select
@@ -51,5 +51,6 @@ export const UserStatisticPage: React.FC<PropsType> = props => {
 			{userSwitcher}
 			<span>{statisticStatus.currentUser?.email}</span>
 			{!statisticStatus.isLoading ? userRequests : <span>Loading....</span>}
+			{stats}
 		</div> );
 };

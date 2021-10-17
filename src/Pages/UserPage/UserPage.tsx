@@ -21,10 +21,13 @@ export const UserPage: React.FC = props => {
 		return <Redirect to={PATH.LOGIN}/>;
 	}
 
+	const stats = <pre>{JSON.stringify(userStatus.stats, null, 2)}</pre>;
+
 	return (
 		<div>
 			<RequestsContainer requests={userStatus.requests}/>
 			<AddNewRequestForm/>
+			{stats}
 		</div>
 	);
 };

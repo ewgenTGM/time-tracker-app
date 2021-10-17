@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import commonStyles from './CommonStyles.module.css'
 import {useDispatch} from 'react-redux';
-import {addUserClaimTC} from '../../Store/Reducers/userReducer';
+import {addUserRequestTC} from '../../Store/Reducers/userReducer';
 
 type PropsType = {
 
@@ -15,7 +15,7 @@ export const AddSick: React.FC<PropsType> = props => {
 	const [sickDays, setSickDays] = useState<boolean>(false);
 
 	const submit = () => {
-		dispatch(addUserClaimTC('Sick', {dateBegin, dateEnd, sickDays}));
+		dispatch(addUserRequestTC('Sick', {dateBegin, dateEnd, sickDays}));
 	};
 
 	return (

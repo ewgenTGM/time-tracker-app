@@ -33,5 +33,4 @@ export const requestApi = {
 		const route = `user/${email}`;
 		return instance.get(route);
 	}
-
 };
