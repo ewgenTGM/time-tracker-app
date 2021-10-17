@@ -22,11 +22,16 @@ export const requestApi = {
 		const route = `add/transfer`;
 		return instance.post(route, {dayFrom, dayTo, description});
 	},
-	addWorkFromHome(date: string){
+	addWorkFromHome(date: string) {
 		const route = `add/wfh`;
 		return instance.post(route, {date});
 	},
 	getUsersRequest() {
 		return instance.get('');
+	},
+	getRequestsByEmail(email: string) {
+		const route = `user/${email}`;
+		return instance.get(route);
 	}
+
 };

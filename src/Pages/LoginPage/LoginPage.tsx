@@ -10,8 +10,6 @@ export const LoginPage: React.FC = props => {
 
 	const isAuthorized = useSelector<RootState, boolean>(state => state.appReducer.isAuthorized);
 	const user = useSelector<RootState, LoginResponseType | null>(state => state.appReducer.user);
-	console.log(isAuthorized);
-	console.log(user);
 	if (isAuthorized) {
 		if (user)
 			return user.userType == 0 ? <Redirect to={PATH.USER_PAGE}/> :

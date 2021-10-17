@@ -5,17 +5,18 @@ import {authReducer} from './Reducers/authReducer';
 import {appReducer} from './Reducers/appReducer';
 import {managerReducer} from './Reducers/managerReducer';
 import {userReducer} from './Reducers/userReducer';
+import {userStatisticReducer} from './Reducers/userStatisticReducer';
 
 const RootReducer = combineReducers({
 	authReducer,
 	registerReducer,
 	appReducer,
 	managerReducer,
-	userReducer
+	userReducer,
+	userStatisticReducer
 });
 
 export const store = createStore(RootReducer, applyMiddleware(thunk));
-//@ts-ignore
-window.store = store.getState();
+
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch;

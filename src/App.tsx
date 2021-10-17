@@ -11,9 +11,9 @@ function App() {
 	const isInitialized = useSelector<RootState, boolean>(state => state.appReducer.isInitialized);
 	const user = useSelector<RootState, LoginResponseType | null>(state => state.appReducer.user);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		if (!isInitialized) {
-			console.log('Call init thunk');
 			dispatch(appInitializeTC());
 		}
 		return;

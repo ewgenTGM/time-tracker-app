@@ -4,12 +4,14 @@ import {LoginPage} from '../Pages/LoginPage/LoginPage';
 import {RegisterPage} from '../Pages/RegisterPage/RegisterPage';
 import {UserPage} from '../Pages/UserPage/UserPage';
 import {ManagerPage} from '../Pages/ManagerPage/ManagerPage';
+import {UserStatisticPage} from '../Pages/UserStatisticPage/UserStatisticPage';
 
 export enum PATH {
 	LOGIN = '/login',
 	REGISTER = '/register',
 	USER_PAGE = '/user',
-	MANAGER_PAGE = '/manager'
+	MANAGER_PAGE = '/manager',
+	USER_STAT_PAGE = '/stat'
 }
 
 export const Routes: React.VFC = () => {
@@ -38,6 +40,10 @@ export const Routes: React.VFC = () => {
 				path={PATH.MANAGER_PAGE}
 				exact
 				render={() => <ManagerPage/>}/>
+			<Route
+				path={PATH.USER_STAT_PAGE}
+				exact
+				render={() => <UserStatisticPage/>}/>
 		</Switch>
 
 	);

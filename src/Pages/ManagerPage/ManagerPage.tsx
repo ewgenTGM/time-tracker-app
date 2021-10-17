@@ -6,6 +6,7 @@ import {RootState} from '../../Store/Store';
 import {Request} from '../../Components/Requests/Request';
 import {Redirect} from 'react-router-dom';
 import {PATH} from '../../Components/Routes';
+import {Link} from 'react-router-dom';
 
 export const ManagerPage: React.FC = props => {
 	const dispatch = useDispatch();
@@ -26,6 +27,7 @@ export const ManagerPage: React.FC = props => {
 	return (
 		<div>
 			<h2>Manager page</h2>
+			<Link to={PATH.USER_STAT_PAGE}>To statistic page</Link>
 			{isLoading ? <span>....Loading....</span> :
 				<div style={{display: 'flex', flexWrap: 'wrap'}}>{requestsElements}</div>}
 			{error ? <span style={{color: 'red'}}>{error}</span> : null}
